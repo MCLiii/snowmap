@@ -1,0 +1,54 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px; /* Adjust height as needed */
+}
+
+.search-container {
+    flex-grow: 1; /* Takes remaining space */
+    margin: 0 auto; /* Centers the search bar */
+    max-width: 60%; /* Limits width to 60% of the container */
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group {
+    margin-right: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="date"] {
+    width: 100%; /* Adjust width with margin */
+    height: 20px;
+
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; /* Add right margin */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #56daff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+button:hover {
+    background-color: #27b0ff;
+}

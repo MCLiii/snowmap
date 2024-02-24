@@ -43,7 +43,7 @@ export default function InteractiveSelector(props) {
 
     const genCard = (dest) => {
         const cardStyle = {
-            width: '200px',
+            width: '80%',
             height: '180px',
             backgroundColor: 'white',
             margin: '10px',
@@ -54,7 +54,7 @@ export default function InteractiveSelector(props) {
         };
         return (
             <div 
-            key={dest.id} 
+            key={dest.name} 
             style={cardStyle} 
             onClick={() => { setSelectedDest((val) => val? null: dest); }}
             onMouseOver={() => {setHoverCard(dest); }}
@@ -74,10 +74,9 @@ export default function InteractiveSelector(props) {
             <div style={{ width: '30%', height: '100%', overflowY: 'scroll'}}>
                 {destData.map((dest) => genCard(dest))}
             </div>
-            <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }}>
+            <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }} key={"map"}>
                 <SnowMap markers={destData} width={screenWidth * 0.7} height={screenHeight * 0.85} hoveredCard={hoverCard}/>
             </div>
-            
         </div>
     );
 }
