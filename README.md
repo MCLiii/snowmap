@@ -29,6 +29,9 @@ Create an interactive google maps website with the ski resort info about weather
 <h3> Reference/Data Source </h3>
 
 * American ski resorts list: https://en.wikipedia.org/wiki/List_of_ski_areas_and_resorts_in_the_United_States
+* The snow weather is not always reported on each weather station. Take other snow weather reports as references
+  - https://www.snow-forecast.com/resorts/Cloudmont/history
+  - https://www.weather.gov/wrh/Climate?wfo=bou
 * Weather report gathering(meteostat): https://github.com/meteostat/meteostat-python?tab=readme-ov-file
   - pip install meteostat
   - can gather future 8 days weather
