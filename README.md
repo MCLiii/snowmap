@@ -15,7 +15,8 @@ Create an interactive google maps website with the ski resort info about weather
   - zipcode: the zipcode of the ski resort (given by Google Map APIs)
   - address: the address of the ski resort (given by Google Map APIs)
   - url: the url of the ski resort (given by Google Map APIS)
-* Table weather (latitude, longitude, date, tavg, tmin, tmax, snowfall)
+* Table weather (resort_name, latitude, longitude, date, tavg, tmin, tmax, snowfall)
+  - <B>resort_name</B>: name of the ski resort in the United States 
   - latitude: the latitude of the ski resort (given by Google Map APIs)
   - longitude: the longitude of the ski resort (given by Google Map APIs)
   - date: the date (dates format: YYYY-MM-DD) 
