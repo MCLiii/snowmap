@@ -16,6 +16,14 @@ Create an interactive google maps website with the ski resort info about weather
   - address: the address of the ski resort (given by Google Map APIs)
   - url: the url of the ski resort (given by Google Map APIS)
 * Table weather (latitude, longitude, elevation, date, tavg, tmin, tmax, snow)
+  - latitude: the latitude of the ski resort (given by Google Map APIs)
+  - longitude: the longitude of the ski resort (given by Google Map APIs)
+  - elevation: the elevation of the ski resort based on latitude and longitude (given by Google Map APIs)
+  - date: the date (dates format: YYYY-MM-DD) 
+  - tavg(°C):	average Temperature of the day
+  - tmin(°C):	minimum Temperature of the day
+  - tmax(°C):	maximum Temperature of the day
+  - snow(mm): snow depth
 * Optional: skiInfo (resort_name, url, daily_ticket_price, num_of_green, num_of_blue, num_of_black)
 
 <h3> Reference/Data Source </h3>
@@ -24,6 +32,8 @@ Create an interactive google maps website with the ski resort info about weather
 * Weather report gathering(meteostat): https://github.com/meteostat/meteostat-python?tab=readme-ov-file
   - pip install meteostat
   - can gather future 8 days weather
+  - parameter interpretation and unit: https://dev.meteostat.net/formats.html#meteorological-parameters
+  - go to the source of the data and interpret snow N/A as 0, snow unit as inch: https://www.weather.gov/wrh/Climate?wfo=bou
   - Historical observations and statistics are obtained from Meteostat's bulk data interface and consist of data provided by different public interfaces, most of which are governmental. Among the data sources are national weather services like the National Oceanic and Atmospheric Administration (NOAA) and Germany's national meteorological service (DWD).
 * Google API token Generate: https://developers.google.com/maps/documentation/embed/get-api-key
 * Google APIs
