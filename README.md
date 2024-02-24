@@ -5,7 +5,8 @@ Create an interactive google maps website with the ski resort info about weather
 <h3> Dataset </h3>
 
 * Table location (resort_name, latitude, longitude, elevation, location_catalog, state, city, zipcode, address, url)
-  - <B>resort_name</B>: name of the ski resort in the United States 
+  - primary key: <B>resort_name</B>
+  - resort_name: name of the ski resort in the United States 
   - latitude: the latitude of the ski resort (given by Google Map APIs)
   - longitude: the longitude of the ski resort (given by Google Map APIs)
   - elevation: the elevation of the ski resort based on latitude and longitude (given by Google Map APIs)
@@ -16,14 +17,15 @@ Create an interactive google maps website with the ski resort info about weather
   - address: the address of the ski resort (given by Google Map APIs)
   - url: the url of the ski resort (given by Google Map APIS)
 * Table weather (resort_name, latitude, longitude, date, tavg, tmin, tmax, snowfall)
-  - <B>resort_name</B>: name of the ski resort in the United States 
-  - latitude: the latitude of the ski resort (given by Google Map APIs)
-  - longitude: the longitude of the ski resort (given by Google Map APIs)
+  - primary key: <B>(latitude, longitude)</B>
+  - resort_name: name of the ski resort in the United States 
+  - latitude: the latitude of the ski resort 
+  - longitude: the longitude of the ski resort 
   - date: the date (dates format: YYYY-MM-DD) 
   - tavg(°C):	average Temperature of the day
   - tmin(°C):	minimum Temperature of the day
   - tmax(°C):	maximum Temperature of the day
-  - snowfall(mm): snowfall of the day
+  - snowfall(mm): snow fall of the day
 * Optional Table skiInfo (resort_name, url, daily_ticket_price, num_of_green, num_of_blue, num_of_black)
 
 <h3> Reference/Data Source </h3>
@@ -33,9 +35,13 @@ Create an interactive google maps website with the ski resort info about weather
   - https://www.snow-forecast.com/resorts/Cloudmont/history
   - https://www.weather.gov/wrh/Climate?wfo=bou
   - https://openweathermap.org/history-bulk
-* Weather Data Source: https://weatherstack.com/documentation
 * Google API token Generate: https://developers.google.com/maps/documentation/embed/get-api-key
 * Google APIs
   - get latitude, longitude, state, city, zipcode, address based on ski resort name(https://maps.googleapis.com/maps/api/geocode/json)
   - get elevation based on latitude and longitude (https://maps.googleapis.com/maps/api/elevation/json?locations={latitude},{longitude}&key={api_key})
   - get ski resort url (https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&key={api_key})
+* Weather Data Source: https://weatherstack.com/documentation
+  - Limitation: get history data requires subscription
+  - Limitation: only can fetch 60 days data at one time
+  - Limitation: only allow 50,000 requests API
+  - GOOD: have the snow fall data everyday
