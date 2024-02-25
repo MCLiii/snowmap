@@ -61,19 +61,30 @@ export default function InteractiveSelector(props) {
             borderColor: selectedDest === dest ? 'blue' : 'gainsboro',
             borderRadius: '10px'
         };
+    
         return (
             <div 
-            key={dest.name} 
-            style={cardStyle} 
-            onClick={() => { setSelectedDest((val) => val == dest? null: dest); }}
-            onMouseOver={() => {setHoverCard(dest); }}
-            onMouseOut={() => { setHoverCard(null); }}
+                key={dest.name} 
+                style={cardStyle} 
+                onClick={() => { setSelectedDest((val) => val === dest ? null : dest); }}
+                onMouseOver={() => { setHoverCard(dest); }}
+                onMouseOut={() => { setHoverCard(null); }}
             >
-                <h3>{dest.name.split(" — ")[0]}, {dest.state}</h3>
-                <p>Expected Snowfall: {Math.round(dest.snowfall * 10) / 10}{unit === "Imperial" ? '"' : 'mm'}</p>
+                <img 
+                src={`/resort-images/${dest.name}.jpg`} 
+                alt={dest.name} 
+                style={{ width: '40%', height: '100%', float: 'left', borderRadius: '10px 0px 0px 10px', objectFit: 'cover' }} 
+                onError={(e) => { e.target.src = '/resort-images/default.jpg'; }}
+                />
+                <div style={{ marginLeft: '10%', paddingLeft: '10px' }}>
+                    <h4>{dest.name.split(" — ")[0]}, {dest.state}</h4>
+                    <p>Expected Snowfall: {Math.round(dest.snowfall * 10) / 10}{unit === "Imperial" ? '"' : 'mm'}</p>
+                </div>
             </div>
         );
     };
+    
+    
 
     return (
         <div style={{ display: 'flex', width: '100%', height: '91vh'}}>
