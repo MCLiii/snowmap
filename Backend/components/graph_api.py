@@ -17,10 +17,7 @@ async def get_dest(resort: str = '', start_date: str = '', end_date: str = '', d
         if start_date[5:] > end_date[5:]:
             cursor.execute(f'''
                 SELECT date, 
-                       CASE 
-                           WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 
-                           ELSE w.snowfall 
-                       END AS snowfall
+                       w.snowfall
                 FROM weather w 
                 JOIN location l ON w.resort_name = l.resort_name
                 WHERE w.resort_name = ? AND ((SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?) OR

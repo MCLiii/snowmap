@@ -67,8 +67,15 @@ function SnowMap(props) {
             position={{ lat: Number(selectedMarker.lat), lng: Number(selectedMarker.lon) }}
             onCloseClick={() => { setSelectedMarker(null); setSelected(null); }}
             >
-            <div>{selectedMarker.name}
-            <p>Snow Fall: {Math.round(selectedMarker?.snowfall*100)/100}</p>
+            <div>
+            <img 
+                src={`/resort-images/${selectedMarker.name}.jpg`} 
+                alt={selectedMarker.name} 
+                style={{ width: '170px', height: '170px', borderRadius: '10px 10px 10px 10px', objectFit: 'cover' }} 
+                onError={(e) => { e.target.src = '/resort-images/default.jpg'; }}
+                />
+                <p>{selectedMarker.name}</p>
+                <p>Snow Fall: {Math.round(selectedMarker?.snowfall*100)/100}</p>
             </div>
             </InfoWindow>
         )}

@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 import sqlite3
+from datetime import datetime
 
 router = APIRouter()
 
@@ -18,7 +19,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                 l.state,
                 l.latitude AS lat,
                 l.longitude AS lon,
-                SUM(CASE WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 ELSE w.snowfall END) / 10 AS avg_snowfall
+                AVG(w.snowfall) AS avg_snowfall
             FROM location l
             JOIN weather w ON l.resort_name = w.resort_name
             WHERE 
@@ -34,7 +35,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.state,
                     l.latitude AS lat,
                     l.longitude AS lon,
-                    SUM(CASE WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 ELSE w.snowfall END) / 10 AS avg_snowfall
+                    AVG(w.snowfall) AS avg_snowfall
                 FROM location l
                 JOIN weather w ON l.resort_name = w.resort_name
                 WHERE SUBSTR(w.date, 6) BETWEEN ? AND ?
@@ -50,7 +51,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.state,
                     l.latitude AS lat,
                     l.longitude AS lon,
-                    SUM(CASE WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 ELSE w.snowfall END) / 10 AS avg_snowfall
+                    AVG(w.snowfall) AS avg_snowfall
                 FROM location l
                 JOIN weather w ON l.resort_name = w.resort_name
                 WHERE 
@@ -68,7 +69,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.state,
                     l.latitude AS lat,
                     l.longitude AS lon,
-                    SUM(CASE WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 ELSE w.snowfall END) / 10 AS avg_snowfall
+                    AVG(w.snowfall) AS avg_snowfall
                 FROM location l
                 JOIN weather w ON l.resort_name = w.resort_name
                 WHERE l.location_catalog IN ({placeholders}) AND SUBSTR(w.date, 6) BETWEEN ? AND ?
@@ -79,14 +80,18 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
 
     result = cursor.fetchall()
     conn.close()
+    start_date_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date_datetime = datetime.strptime(end_date, '%Y-%m-%d')
 
+    #  Calculate the difference in days
+    num_days = (end_date_datetime - start_date_datetime).days
     formatted_data = {
         "data": [{
             "name": row[0],
             "state": row[1],
             "lat": str(row[2]),
             "lon": str(row[3]),
-            "snowfall": str(row[4])
+            "snowfall": str(row[4] * num_days)
         } for row in result]
     }
 

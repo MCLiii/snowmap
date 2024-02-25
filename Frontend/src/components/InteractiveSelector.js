@@ -92,9 +92,9 @@ export default function InteractiveSelector(props) {
                 {destData.map((dest) => genCard(dest))}
             </div>
             <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }} key={"mapngraph"}>
-                <SnowMap markers={destData} width={screenWidth * 0.7} height={selectedDest ? (screenHeight * 0.6) : (screenHeight * 0.91)} hoveredCard={hoverCard} setSelected={setSelectedDest} selected={selectedDest}/>
+                <SnowMap markers={destData} width={screenWidth * 0.7} height={selectedDest ? (screenHeight * 0.55) : (screenHeight * 0.91)} hoveredCard={hoverCard} setSelected={setSelectedDest} selected={selectedDest}/>
                 {selectedDest && startdate && enddate && 
-                    <Graph selectedResort={selectedDest.name} startdate={startdate} enddate={enddate} width={screenWidth * 0.7} height={screenHeight * 0.2} unit={unit} />
+                    <Graph selectedResort={selectedDest.name} startdate={startdate} enddate={enddate} width={screenWidth * 0.7} height={screenHeight * 0.25} unit={unit} />
                 }
             </div>
         </div>
