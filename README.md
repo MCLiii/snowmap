@@ -26,11 +26,16 @@ Create an interactive google maps website with the ski resort info about weather
   - tmax(°C):	maximum Temperature of the day
   - snowfall(mm): snow fall of the day
 * Table skiInfo (resort_name, rank, rating, image_url, state)
+  - primary key: <B>resort_name</B>
   - resort_name: the ski resort name
   - rank: the rank of the ski resort (given by the skiInfo.com)
   - rating: the rating of the ski resort (given by the skiInfo.com)
   - image_url: the image url (given by the skiInfo.com)
   - state: the state of the ski resort
+* Table name_mapping(location_name, skiinfo_name)
+  - primary key: <B>location_name</B>
+  - location_name: resort name from the location table
+  - skiinfo_name: resort name from the skiInfo table
 
 <h3> Reference/Data Source </h3>
 
@@ -59,3 +64,6 @@ Create an interactive google maps website with the ski resort info about weather
   - parameter interpretation and unit: https://dev.meteostat.net/formats.html#meteorological-parameters
   - go to the source of the data and interpret snow N/A as 0, snow unit as inch: https://www.weather.gov/wrh/Climate?wfo=bou
   - Historical observations and statistics are obtained from Meteostat's bulk data interface and consist of data provided by different public interfaces, most of which are governmental. Among the data sources are national weather services like the National Oceanic and Atmospheric Administration (NOAA) and Germany's national meteorological service (DWD).
+* skiInfo: https://www.skiresort.info/ski-resorts/usa/
+  - Get resort_name, rank, rating, image_url, state from the website
+  - Since the resort_name is different from table skiInfo and table location, use fuzzywuzzy to identify similar names and map them together(store in the table name_mapping)
