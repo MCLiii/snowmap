@@ -34,7 +34,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.state,
                     l.latitude AS lat,
                     l.longitude AS lon,
-                    SUM(w.snowfall)/10 AS avg_snowfall
+                    SUM(CASE WHEN l.location_catalog IN ('Rocky Mountains', 'West Coast') THEN w.snowfall * 8 ELSE w.snowfall END) / 10 AS avg_snowfall
                 FROM location l
                 JOIN weather w ON l.resort_name = w.resort_name
                 WHERE SUBSTR(w.date, 6) BETWEEN ? AND ?
