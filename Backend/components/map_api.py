@@ -50,7 +50,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
             "state": row[1],
             "lat": str(row[2]),
             "lon": str(row[3]),
-            "avg_snowfall": str(row[4])
+            "snowfall": str(row[4])
         } for row in result]
     }
 
