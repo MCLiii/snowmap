@@ -10,7 +10,6 @@ export default function InteractiveSelector(props) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const [hoverCard, setHoverCard] = useState(null);
-    const [graphVisible, setGraphVisible] = useState(false);
 
     useEffect(() => {
         // Function to handle resize event
@@ -66,24 +65,23 @@ export default function InteractiveSelector(props) {
             <div 
             key={dest.name} 
             style={cardStyle} 
-            onClick={() => { setSelectedDest((val) => val? null: dest); }}
+            onClick={() => { setSelectedDest((val) => val == dest? null: dest); }}
             onMouseOver={() => {setHoverCard(dest); }}
             onMouseOut={() => { setHoverCard(null); }}
             >
-                <h3>{dest.name}</h3>
-                <p>{dest.description}</p>
-                <p>Snowfall {Math.round(dest.snowfall * 10) / 10}{unit === "Imperial" ? '"' : 'cm'}</p>
+                <h3>{dest.name.split(" — ")[0]}, {dest.state}</h3>
+                <p>Expected Snowfall: {Math.round(dest.snowfall * 10) / 10}{unit === "Imperial" ? '"' : 'mm'}</p>
             </div>
         );
     };
 
     return (
-        <div style={{ display: 'flex', width: '100%', height: '85vh'}}>
+        <div style={{ display: 'flex', width: '100%', height: '91vh'}}>
             <div style={{ width: '30%', height: '100%', overflowY: 'scroll'}}>
                 {destData.map((dest) => genCard(dest))}
             </div>
             <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }} key={"mapngraph"}>
-                <SnowMap markers={destData} width={screenWidth * 0.7} height={selectedDest ? (screenHeight * 0.5) : (screenHeight * 0.8)} hoveredCard={hoverCard} setSelected={setSelectedDest} selected={selectedDest}/>
+                <SnowMap markers={destData} width={screenWidth * 0.7} height={selectedDest ? (screenHeight * 0.6) : (screenHeight * 0.91)} hoveredCard={hoverCard} setSelected={setSelectedDest} selected={selectedDest}/>
                 {selectedDest && startdate && enddate && 
                     <Graph selectedResort={selectedDest.name} startdate={startdate} enddate={enddate} width={screenWidth * 0.7} height={screenHeight * 0.2} unit={unit} />
                 }
