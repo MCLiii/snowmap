@@ -5,7 +5,7 @@ router = APIRouter()
 
 @router.get("/get-dest")
 async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
-    conn = sqlite3.connect('../../skiDataset.db') 
+    conn = sqlite3.connect('../skiDataset.db') 
     cursor = conn.cursor()
 
     regions = region.split(',')
