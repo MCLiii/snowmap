@@ -40,6 +40,10 @@ Create an interactive google maps website with the ski resort info about weather
   - get latitude, longitude, state, city, zipcode, address based on ski resort name(https://maps.googleapis.com/maps/api/geocode/json)
   - get elevation based on latitude and longitude (https://maps.googleapis.com/maps/api/elevation/json?locations={latitude},{longitude}&key={api_key})
   - get ski resort url (https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&key={api_key})
+  - The following results of ski resort searching in Google is incorrect. So we drop it.
+    * Kanc Rec Area — Lincoln
+    * Mount Prospect — Lancaster
+    * Big Squaw — Greenville
 * Weather Data Source: https://weatherstack.com/documentation
   - Limitation: get history data requires subscription
   - Limitation: only can fetch 60 days data at one time
