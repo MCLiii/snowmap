@@ -26,7 +26,12 @@ Create an interactive google maps website with the ski resort info about weather
   - tmin(°C):	minimum Temperature of the day
   - tmax(°C):	maximum Temperature of the day
   - snowfall(mm): snow fall of the day
-* Optional Table skiInfo (resort_name, url, daily_ticket_price, num_of_green, num_of_blue, num_of_black)
+* Table skiInfo (resort_name, rank, rating, image_url, state)
+  - resort_name: the ski resort name
+  - rank: the rank of the ski resort (given by the skiInfo.com)
+  - rating: the rating of the ski resort (given by the skiInfo.com)
+  - image_url: the image url (given by the skiInfo.com)
+  - state: the state of the ski resort
 
 <h3> Reference/Data Source </h3>
 
