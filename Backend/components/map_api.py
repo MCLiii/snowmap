@@ -1,56 +1,56 @@
 from fastapi import APIRouter
 import sqlite3
+
 router = APIRouter()
 
 @router.get("/get-dest")
 async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
-    """ Pass in a comma separated string of ski resort regions"""
-    #start_date = "2024-01-01" 
-    #end_date = "2024-02-24"
-    # region = "Mid-Atlantic"    
     conn = sqlite3.connect('../../skiDataset.db') 
     cursor = conn.cursor()
-    if region == "All":
+
+    regions = region.split(',')
+
+    if "All" in regions:
         cursor.execute('''
             SELECT
                 l.resort_name AS name,
                 l.state,
                 l.latitude AS lat,
                 l.longitude AS lon,
-                SUM(w.snowfall) AS snowfall
+                AVG(SUM(w.snowfall)) AS avg_snowfall
             FROM location l
             JOIN weather w ON l.resort_name = w.resort_name
-            WHERE w.date BETWEEN ? AND ?
+            WHERE SUBSTR(w.date, 6) BETWEEN ? AND ?
             GROUP BY l.resort_name, l.state, l.latitude, l.longitude
-            ORDER BY snowfall DESC
-        ''', (start_date, end_date))
+            ORDER BY avg_snowfall DESC
+        ''', (start_date[5:], end_date[5:]))
     else:
-        cursor.execute('''
+        placeholders = ', '.join(['?' for _ in regions])
+        query = f'''
             SELECT
                 l.resort_name AS name,
                 l.state,
                 l.latitude AS lat,
                 l.longitude AS lon,
-                SUM(w.snowfall) AS snowfall
+                AVG(SUM(w.snowfall)) AS avg_snowfall
             FROM location l
             JOIN weather w ON l.resort_name = w.resort_name
-            WHERE l.location_catalog = ? AND w.date BETWEEN ? AND ?
+            WHERE l.location_catalog IN ({placeholders}) AND SUBSTR(w.date, 6) BETWEEN ? AND ?
             GROUP BY l.resort_name, l.state, l.latitude, l.longitude
-            ORDER BY snowfall DESC
-        ''', (region, start_date, end_date))
+            ORDER BY avg_snowfall DESC
+        '''
+        cursor.execute(query, (*regions, start_date[5:], end_date[5:]))
 
-    # Fetch all the results
     result = cursor.fetchall()
-
-    # Close the database connection
     conn.close()
+
     formatted_data = {
         "data": [{
             "name": row[0],
             "state": row[1],
             "lat": str(row[2]),
             "lon": str(row[3]),
-            "snowfall": str(row[4])
+            "avg_snowfall": str(row[4])
         } for row in result]
     }
 
