@@ -10,7 +10,7 @@ async def get_dest(resort: str = '', start_date: str = '', end_date: str = '', d
     if data_type not in allowed_columns:
         raise ValueError(f"Invalid data_type: {data_type}")
 
-    conn = sqlite3.connect('../../skiDataset.db')
+    conn = sqlite3.connect('../skiDataset.db')
     cursor = conn.cursor()
 
     cursor.execute(f'''

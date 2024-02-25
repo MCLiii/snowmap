@@ -10,7 +10,7 @@ const center = {
 function SnowMap(props) {
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [hoveredMarker, setHoveredMarker] = useState(null);
-    const { markers, width, height, hoveredCard } = props;
+    const { markers, width, height, hoveredCard, setSelected, selected} = props;
 
     console.log(markers);
     const containerStyle = {
@@ -44,17 +44,17 @@ function SnowMap(props) {
             <Marker
             key={index}
             position={{ lat: Number(marker.lat), lng: Number(marker.lon) }}
-            onClick={() => { setSelectedMarker(marker); }}
+            onClick={() => { setSelectedMarker(marker); setSelected(marker);}}
             onMouseOver={() => { setHoveredMarker(marker);}}
             onMouseOut={() => { setHoveredMarker(null); }}
             icon={{
-                url: (hoveredMarker === marker || hoveredCard == marker) ? 'https://maps.gstatic.com/mapfiles/ms2/micons/green.png' : 'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
+                url: (hoveredMarker === marker || hoveredCard == marker || selected==marker) ? 'https://maps.gstatic.com/mapfiles/ms2/micons/green.png' : 'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
                 scaledSize: new window.google.maps.Size(50, 50),
                 labelOrigin: new window.google.maps.Point(25, 15)
             }}
-            zIndex={hoveredMarker === marker || hoveredCard == marker ? 1000 : null}
+            zIndex={hoveredMarker === marker || hoveredCard == marker || selected==marker ? 1000 : null}
             label={{
-                text: marker.snowfall,
+                text: String(Math.round(marker.snowfall)),
                 color: 'white',
                 fontSize: '13px',
                 fontWeight: 'bold',
@@ -65,10 +65,10 @@ function SnowMap(props) {
         {selectedMarker && (
             <InfoWindow
             position={{ lat: Number(selectedMarker.lat), lng: Number(selectedMarker.lon) }}
-            onCloseClick={() => { setSelectedMarker(null); }}
+            onCloseClick={() => { setSelectedMarker(null); setSelected(null); }}
             >
             <div>{selectedMarker.name}
-            <p>Snow Fall: {selectedMarker?.snowfall}</p>
+            <p>Snow Fall: {Math.round(selectedMarker?.snowfall*100)/100}</p>
             </div>
             </InfoWindow>
         )}

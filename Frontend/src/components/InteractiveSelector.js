@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import API from "../apilist.json";
 import SnowMap from './map.js';
+import Graph from "./graph.js";
 
 export default function InteractiveSelector(props) {
-    const { region, startdate, enddate } = props;
+    const { region, startdate, enddate, unit } = props;
     const [selectedDest, setSelectedDest] = useState(null);
     const [destData, setDest] = useState([]);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const [hoverCard, setHoverCard] = useState(null);
+    const [graphVisible, setGraphVisible] = useState(false);
 
     useEffect(() => {
         // Function to handle resize event
@@ -21,7 +23,7 @@ export default function InteractiveSelector(props) {
         window.addEventListener('resize', handleResize);
 
         // Fetch data from backend
-        fetch(API.GET_DESTINATIONS + `?region=${region || ''}&startdate=${startdate || ''}&enddate=${enddate || ''}`)
+        fetch(API.GET_DESTINATIONS + `?region=${region || ''}&start_date=${startdate || ''}&end_date=${enddate || ''}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -29,7 +31,15 @@ export default function InteractiveSelector(props) {
                 return response.json();
             })
             .then(data => {
-                setDest(data?.data || []);
+                if (unit === "Imperial" && data?.data && data.data.length > 0) {
+                    const newData = data.data.map(dest => ({
+                        ...dest,
+                        snowfall: dest.snowfall * 0.0393701
+                    }));
+                    setDest(newData);
+                } else {
+                    setDest(data?.data || []);
+                }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -44,7 +54,7 @@ export default function InteractiveSelector(props) {
     const genCard = (dest) => {
         const cardStyle = {
             width: '80%',
-            height: '180px',
+            height: '130px',
             backgroundColor: 'white',
             margin: '10px',
             cursor: 'pointer',
@@ -62,9 +72,7 @@ export default function InteractiveSelector(props) {
             >
                 <h3>{dest.name}</h3>
                 <p>{dest.description}</p>
-                <p>Latitude: {dest.lat}</p>
-                <p>Longitude: {dest.lon}</p>
-                <p>Snowfall: {dest.snowfall}</p>
+                <p>Snowfall {Math.round(dest.snowfall * 10) / 10}{unit === "Imperial" ? '"' : 'cm'}</p>
             </div>
         );
     };
@@ -74,8 +82,11 @@ export default function InteractiveSelector(props) {
             <div style={{ width: '30%', height: '100%', overflowY: 'scroll'}}>
                 {destData.map((dest) => genCard(dest))}
             </div>
-            <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }} key={"map"}>
-                <SnowMap markers={destData} width={screenWidth * 0.7} height={screenHeight * 0.85} hoveredCard={hoverCard}/>
+            <div style={{ flex: 1, width: '70%', height: '100%', overflow: 'hidden' }} key={"mapngraph"}>
+                <SnowMap markers={destData} width={screenWidth * 0.7} height={selectedDest ? (screenHeight * 0.5) : (screenHeight * 0.8)} hoveredCard={hoverCard} setSelected={setSelectedDest} selected={selectedDest}/>
+                {selectedDest && startdate && enddate && 
+                    <Graph selectedResort={selectedDest.name} startdate={startdate} enddate={enddate} width={screenWidth * 0.7} height={screenHeight * 0.2} unit={unit} />
+                }
             </div>
         </div>
     );

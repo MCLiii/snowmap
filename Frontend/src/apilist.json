@@ -1,3 +1,4 @@
 {
-    "GET_DESTINATIONS": "/get-dest"
+    "GET_DESTINATIONS": "/get-dest",
+    "GET_GRAPH": "/get-graph"
 }
