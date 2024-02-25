@@ -7,22 +7,37 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
     """ Pass in a comma separated string of ski resort regions"""
     #start_date = "2024-01-01" 
     #end_date = "2024-02-24"
-    # region = "Mid-Atlantic"
+    # region = "Mid-Atlantic"    
     conn = sqlite3.connect('../../skiDataset.db') 
     cursor = conn.cursor()
-    cursor.execute('''
-        SELECT
-            l.resort_name AS name,
-            l.state,
-            l.latitude AS lat,
-            l.longitude AS lon,
-            SUM(w.snowfall) AS snowfall
-        FROM location l
-        JOIN weather w ON l.resort_name = w.resort_name
-        WHERE l.location_catalog = ? AND w.date BETWEEN ? AND ?
-        GROUP BY l.resort_name, l.state, l.latitude, l.longitude
-        ORDER BY snowfall DESC
-    ''', (region, start_date, end_date))
+    if region == "All":
+        cursor.execute('''
+            SELECT
+                l.resort_name AS name,
+                l.state,
+                l.latitude AS lat,
+                l.longitude AS lon,
+                SUM(w.snowfall) AS snowfall
+            FROM location l
+            JOIN weather w ON l.resort_name = w.resort_name
+            WHERE w.date BETWEEN ? AND ?
+            GROUP BY l.resort_name, l.state, l.latitude, l.longitude
+            ORDER BY snowfall DESC
+        ''', (start_date, end_date))
+    else:
+        cursor.execute('''
+            SELECT
+                l.resort_name AS name,
+                l.state,
+                l.latitude AS lat,
+                l.longitude AS lon,
+                SUM(w.snowfall) AS snowfall
+            FROM location l
+            JOIN weather w ON l.resort_name = w.resort_name
+            WHERE l.location_catalog = ? AND w.date BETWEEN ? AND ?
+            GROUP BY l.resort_name, l.state, l.latitude, l.longitude
+            ORDER BY snowfall DESC
+        ''', (region, start_date, end_date))
 
     # Fetch all the results
     result = cursor.fetchall()
