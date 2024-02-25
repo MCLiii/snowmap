@@ -39,6 +39,7 @@ function SnowMap(props) {
         zoom={4}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        mapTypeId='terrain'
         >
         {markers instanceof Array && markers.map((marker, index) => (
             <Marker
