@@ -8,7 +8,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
     #start_date = "2024-01-01" 
     #end_date = "2024-02-24"
     # region = "Mid-Atlantic"
-    conn = sqlite3.connect('../skiDataset.db') 
+    conn = sqlite3.connect('../../skiDataset.db') 
     cursor = conn.cursor()
     cursor.execute('''
         SELECT
