@@ -12,13 +12,21 @@ async def get_dest(resort: str = '', start_date: str = '', end_date: str = '', d
 
     conn = sqlite3.connect('../skiDataset.db')
     cursor = conn.cursor()
-
-    cursor.execute(f'''
-        SELECT date, {data_type}
-        FROM weather w 
-        WHERE w.resort_name = ? AND SUBSTR(w.date, 6) BETWEEN ? AND ?
-        ORDER BY date ASC
-    ''', (resort, start_date[5:], end_date[5:]))
+    if start_date[5:] > end_date[5:]:
+        cursor.execute(f'''
+            SELECT date, {data_type}
+            FROM weather w 
+            WHERE w.resort_name = ? AND (SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?) OR
+                (SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?)
+            ORDER BY date ASC
+        ''', (resort, start_date[5:], '12-31', '01-01', end_date[5:]))
+    else:
+        cursor.execute(f'''
+            SELECT date, {data_type}
+            FROM weather w 
+            WHERE w.resort_name = ? AND SUBSTR(w.date, 6) BETWEEN ? AND ?
+            ORDER BY date ASC
+        ''', (resort, start_date[5:], end_date[5:]))
 
     # Fetch all the results
     result = cursor.fetchall()

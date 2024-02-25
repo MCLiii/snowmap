@@ -1,7 +1,6 @@
 <h3> What we are doing </h3>
 
 Create an interactive google maps website with the ski resort info about weather for USA ski resorts.
-
 <h3> Dataset </h3>
 
 * Table location (resort_name, latitude, longitude, elevation, location_catalog, state, city, zipcode, address, url)
@@ -54,3 +53,9 @@ Create an interactive google maps website with the ski resort info about weather
   - Limitation: only can fetch 60 days data at one time
   - Limitation: only allow 50,000 requests API
   - GOOD: have the snow fall data everyday
+* Weather Data Leftover Source: https://dev.meteostat.net/python/daily.html#data-structure
+  - pip install meteostat
+  - can gather future 8 days weather
+  - parameter interpretation and unit: https://dev.meteostat.net/formats.html#meteorological-parameters
+  - go to the source of the data and interpret snow N/A as 0, snow unit as inch: https://www.weather.gov/wrh/Climate?wfo=bou
+  - Historical observations and statistics are obtained from Meteostat's bulk data interface and consist of data provided by different public interfaces, most of which are governmental. Among the data sources are national weather services like the National Oceanic and Atmospheric Administration (NOAA) and Germany's national meteorological service (DWD).
