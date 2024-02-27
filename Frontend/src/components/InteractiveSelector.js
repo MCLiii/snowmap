@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import API from "../apilist.json";
 import SnowMap from './map.js';
 import Graph from "./graph.js";
+import config from '../apilist.json';
 
 export default function InteractiveSelector(props) {
     const { region, startdate, enddate, unit } = props;
@@ -71,10 +72,10 @@ export default function InteractiveSelector(props) {
                 onMouseOut={() => { setHoverCard(null); }}
             >
                 <img 
-                src={`/api/resort-images/${dest.name}.jpg`} 
+                src={`${config.RESORT_IMAGE}/${dest.name}.jpg`} 
                 alt={dest.name} 
                 style={{ width: '40%', height: '100%', float: 'left', borderRadius: '10px 0px 0px 10px', objectFit: 'cover' }} 
-                onError={(e) => { e.target.src = '/api/resort-images/default.jpg'; }}
+                onError={(e) => { e.target.src = config.RESORT_IMAGE+'/default.jpg'; }}
                 />
                 <div style={{ marginLeft: '10%', paddingLeft: '10px' }}>
                     <h4>{dest.name.split(" — ")[0]}, {dest.state}</h4>

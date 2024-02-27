@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import config from '../config';
+import apilist from '../apilist.json';
 
 const center = {
   lat: 39.8282,
@@ -70,10 +71,10 @@ function SnowMap(props) {
             >
             <div>
             <img 
-                src={`/resort-images/${selectedMarker.name}.jpg`} 
+                src={`${apilist.RESORT_IMAGE}/${selectedMarker.name}.jpg`} 
                 alt={selectedMarker.name} 
                 style={{ width: '170px', height: '170px', borderRadius: '10px 10px 10px 10px', objectFit: 'cover' }} 
-                onError={(e) => { e.target.src = '/api/resort-images/default.jpg'; }}
+                onError={(e) => { e.target.src = apilist.RESORT_IMAGE+'/default.jpg'; }}
                 />
                 <p>{selectedMarker.name}</p>
                 <p>Snow Fall: {Math.round(selectedMarker?.snowfall*100)/100}</p>

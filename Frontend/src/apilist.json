@@ -1,4 +1,5 @@
 {
     "GET_DESTINATIONS": "api/get-dest",
-    "GET_GRAPH": "api/get-graph"
+    "GET_GRAPH": "api/get-graph",
+    "RESORT_IMAGE": "api/resort-images"
 }
