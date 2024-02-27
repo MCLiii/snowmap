@@ -71,10 +71,10 @@ export default function InteractiveSelector(props) {
                 onMouseOut={() => { setHoverCard(null); }}
             >
                 <img 
-                src={`/resort-images/${dest.name}.jpg`} 
+                src={`/api/resort-images/${dest.name}.jpg`} 
                 alt={dest.name} 
                 style={{ width: '40%', height: '100%', float: 'left', borderRadius: '10px 0px 0px 10px', objectFit: 'cover' }} 
-                onError={(e) => { e.target.src = '/resort-images/default.jpg'; }}
+                onError={(e) => { e.target.src = '/api/resort-images/default.jpg'; }}
                 />
                 <div style={{ marginLeft: '10%', paddingLeft: '10px' }}>
                     <h4>{dest.name.split(" — ")[0]}, {dest.state}</h4>

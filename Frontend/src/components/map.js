@@ -73,7 +73,7 @@ function SnowMap(props) {
                 src={`/resort-images/${selectedMarker.name}.jpg`} 
                 alt={selectedMarker.name} 
                 style={{ width: '170px', height: '170px', borderRadius: '10px 10px 10px 10px', objectFit: 'cover' }} 
-                onError={(e) => { e.target.src = '/resort-images/default.jpg'; }}
+                onError={(e) => { e.target.src = '/api/resort-images/default.jpg'; }}
                 />
                 <p>{selectedMarker.name}</p>
                 <p>Snow Fall: {Math.round(selectedMarker?.snowfall*100)/100}</p>

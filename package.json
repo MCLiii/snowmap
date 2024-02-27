@@ -7,7 +7,10 @@
     "start": "run-p backend frontend",
     "install-backend": "cd Backend && pip install .",
     "install-frontend": "cd Frontend && npm i",
-    "postinstall": "run-p install-backend install-frontend"
+    "postinstall": "run-p install-backend install-frontend",
+    "build-serve": "cd Frontend && npm run build && serve -s"
+    ,
+    "deploy": "run-p backend build-serve"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
