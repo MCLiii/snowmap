@@ -3,6 +3,24 @@
 Create an interactive google maps website with the ski resort info about weather for USA ski resorts.
 <h3> Dataset </h3>
 
+* Table skiRank (resort_name, rank, rating, image_url, state)
+  - primary key: <B>resort_name</B>
+  - resort_name: the ski resort name
+  - rank: the rank of the ski resort (given by the skiInfo.com)
+  - rating: the rating of the ski resort (given by the skiInfo.com)
+  - image_url: the image url (given by the skiInfo.com)
+  - state: the state of the ski resort
+* Table skiInfo (resort_name, elevation, min_elevation, max_elevation, total_slope, green_slope, blue_slope, black_slope, num_ski_lifts)
+  - primary key: <B>resort_name</B>
+  - resort_name: the ski resort name
+  - elevation(m): the height of the mountain
+  - min_elevation(m): the lowest elevation of the height
+  - max_elevation(m): the highest elevation of the height
+  - total_slope(km): the total length of the slopes
+  - green_slope(km): the total easiest slope length
+  - blue_slope(km): the total intermediate slope length
+  - black_slope(km): the total difficult slope length
+  - num_ski_lifts: the number of ski lifts in the ski resort
 * Table location (resort_name, latitude, longitude, elevation, location_catalog, state, city, zipcode, address, url)
   - primary key: <B>resort_name</B>
   - resort_name: name of the ski resort in the United States 
@@ -25,13 +43,6 @@ Create an interactive google maps website with the ski resort info about weather
   - tmin(°C):	minimum Temperature of the day
   - tmax(°C):	maximum Temperature of the day
   - snowfall(mm): snow fall of the day
-* Table skiInfo (resort_name, rank, rating, image_url, state)
-  - primary key: <B>resort_name</B>
-  - resort_name: the ski resort name
-  - rank: the rank of the ski resort (given by the skiInfo.com)
-  - rating: the rating of the ski resort (given by the skiInfo.com)
-  - image_url: the image url (given by the skiInfo.com)
-  - state: the state of the ski resort
 * Table name_mapping(location_name, skiinfo_name)
   - primary key: <B>location_name</B>
   - location_name: resort name from the location table
