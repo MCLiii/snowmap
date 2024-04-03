@@ -18,7 +18,7 @@ async def get_dest(resort: str = '', start_date: str = '', end_date: str = '', d
             cursor.execute(f'''
                 SELECT date, 
                        w.snowfall
-                FROM weather w 
+                FROM snowfall w 
                 JOIN location l ON w.resort_name = l.resort_name
                 WHERE w.resort_name = ? AND ((SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?) OR
                     (SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?))
@@ -28,7 +28,7 @@ async def get_dest(resort: str = '', start_date: str = '', end_date: str = '', d
             cursor.execute(f'''
                 SELECT date, 
                        w.snowfall 
-                FROM weather w 
+                FROM snowfall w 
                 JOIN location l ON w.resort_name = l.resort_name
                 WHERE w.resort_name = ? AND SUBSTR(w.date, 6) BETWEEN ? AND ?
                 ORDER BY date ASC

@@ -21,7 +21,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                 l.longitude AS lon,
                 AVG(w.snowfall) AS avg_snowfall
             FROM location l
-            JOIN weather w ON l.resort_name = w.resort_name
+            JOIN snowfall w ON l.resort_name = w.resort_name
             WHERE 
                 (SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?) OR
                 (SUBSTR(w.date, 6) >= ? AND SUBSTR(w.date, 6) <= ?)
@@ -37,7 +37,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.longitude AS lon,
                     AVG(w.snowfall) AS avg_snowfall
                 FROM location l
-                JOIN weather w ON l.resort_name = w.resort_name
+                JOIN snowfall w ON l.resort_name = w.resort_name
                 WHERE SUBSTR(w.date, 6) BETWEEN ? AND ?
                 GROUP BY l.resort_name, l.state, l.latitude, l.longitude
                 ORDER BY avg_snowfall DESC
@@ -71,7 +71,7 @@ async def get_dest(region: str = '', start_date: str = '', end_date: str = ''):
                     l.longitude AS lon,
                     AVG(w.snowfall) AS avg_snowfall
                 FROM location l
-                JOIN weather w ON l.resort_name = w.resort_name
+                JOIN snowfall w ON l.resort_name = w.resort_name
                 WHERE l.location_catalog IN ({placeholders}) AND SUBSTR(w.date, 6) BETWEEN ? AND ?
                 GROUP BY l.resort_name, l.state, l.latitude, l.longitude
                 ORDER BY avg_snowfall DESC
