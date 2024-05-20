@@ -1,0 +1,78 @@
+definitions:
+  component.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  component.SuccessResponse:
+    properties:
+      data:
+        additionalProperties:
+          additionalProperties:
+            type: string
+          type: object
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /api/:
+    get:
+      consumes:
+      - application/json
+      description: Get a Hello message
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Show a Hello message
+      tags:
+      - example
+  /api/get-graph:
+    get:
+      consumes:
+      - application/json
+      description: Get weather data for a specific resort and date range
+      parameters:
+      - description: Resort name
+        in: query
+        name: resort
+        required: true
+        type: string
+      - description: Start date in YYYY-MM-DD format
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: End date in YYYY-MM-DD format
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: Data type (e.g., snowfall, tmax, tmin, tavg)
+        in: query
+        name: data_type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/component.SuccessResponse'
+        "400":
+          description: Invalid data type or missing parameters
+          schema:
+            $ref: '#/definitions/component.ErrorResponse'
+        "500":
+          description: Database connection or query execution error
+          schema:
+            $ref: '#/definitions/component.ErrorResponse'
+      summary: Fetch weather data
+      tags:
+      - weather
+swagger: "2.0"
