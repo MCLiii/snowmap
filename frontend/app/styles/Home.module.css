@@ -1,0 +1,79 @@
+/* styles/Home.module.css */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url('/images/matterhorn.jpg');
+    background-size: cover;
+    flex-direction: column;
+    background-position: center center;
+  }
+  
+  .head {
+    font-size: 2rem;
+    padding-bottom: 5%;
+    color: #fff;
+  }
+
+  .hero {
+    text-align: center;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    flex-direction: column;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .hero {
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      flex-direction: column;
+    }
+  }
+
+  .tabContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    margin: 0 5px;
+    border-radius: 5px;
+  }
+  
+  .active {
+    background-color: #00f;
+    color: #fff;
+  }
+  
+  .formContainer, .recommendContainer {
+    margin-top: 20px;
+  }
+  
+  .input {
+    margin: 10px 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #00f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
